@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="springboot_log" class="org.apache.log4j.DailyRollingFileAppender" >
+        <param name="file" value="/springboot/logs/springboot.log" />
+        <param name="append" value="true" />
+        <param name="encoding" value="UTF-8" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p %l - %m%n" />
+        </layout>
+    </appender>
+
+    <appender name="springboot_console" class="org.apache.log4j.ConsoleAppender" >
+        <param name="target" value="System.out" />
+        <param name="Threshold" value="debug" />
+        <layout class="org.apache.log4j.PatternLayout" >
+            <param name="ConversionPattern" value="[%p] %d %l - %m%n" />
+        </layout>
+    </appender>
+
+    <appender name="service_error_log" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="/springboot/logs/springboot_error.log" />
+        <param name="append" value="true" />
+        <param name="encoding" value="UTF-8" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p %l - %m%n" />
+        </layout>
+    </appender>
+
+    <logger name="service" additivity="false" >
+        <level value="ALL" />
+        <appender-ref ref="springboot_log"  />
+        <appender-ref ref="springboot_console"  />
+    </logger>
+
+    <logger name="root" additivity="false">
+        <level value="ERROR"/>
+        <appender-ref ref="service_error_log"/>
+    </logger>
+
+    <root>
+        <priority value="INFO" />
+        <appender-ref ref="springboot_console" />
+        <!--<appender-ref ref="springboot_log" />-->
+    </root>
+
+</log4j:configuration>
